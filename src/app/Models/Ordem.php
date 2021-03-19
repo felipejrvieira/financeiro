@@ -10,5 +10,10 @@ class Ordem extends Model
     use HasFactory;
 
     protected $table = 'ordens';
-
+    protected $fillable = ['acao_id', 'user_id', 'tipo', 'efetuado_em', 'quantidade', 'preco','taxa'];
+    protected $casts = [
+        'efetuado_em' => 'date',
+        'preco' => 'decimal:2',
+        'taxa' => 'decimal:2',
+    ];
 }

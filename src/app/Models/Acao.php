@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Acao extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'acoes';
+    protected $fillable = ['ticket', 'nome', 'segmento_id'];
 
 }
