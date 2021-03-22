@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Segmento;
 use Illuminate\Http\Request;
 
 class SegmentoController extends Controller
@@ -13,7 +14,7 @@ class SegmentoController extends Controller
      */
     public function index()
     {
-        //
+       return Segmento::get()->toJson(); //
     }
 
     /**
@@ -24,7 +25,7 @@ class SegmentoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Segmento::create([$request]);//
     }
 
     /**
@@ -35,7 +36,7 @@ class SegmentoController extends Controller
      */
     public function show($id)
     {
-        //
+        return Segmento::find($id)->toJon();//
     }
 
     /**
