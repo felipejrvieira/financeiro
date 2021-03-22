@@ -25,7 +25,7 @@ class SegmentoController extends Controller
      */
     public function store(Request $request)
     {
-        Segmento::create([$request]);//
+        Segmento::create($request->all());//
     }
 
     /**
@@ -36,7 +36,7 @@ class SegmentoController extends Controller
      */
     public function show($id)
     {
-        return Segmento::find($id)->toJon();//
+        return Segmento::find($id)->toJson();//
     }
 
     /**
@@ -48,7 +48,7 @@ class SegmentoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Segmento::find($id)->update($request->all());
     }
 
     /**
@@ -59,6 +59,6 @@ class SegmentoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Segmento::find($id)->delete();
     }
 }
