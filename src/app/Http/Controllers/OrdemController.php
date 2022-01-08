@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Ordem;
 
 class OrdemController extends Controller
 {
@@ -13,7 +14,7 @@ class OrdemController extends Controller
      */
     public function index()
     {
-        //
+        return Ordem::get()->toJson();
     }
 
     /**

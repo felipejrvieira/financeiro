@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Acao;
 use Illuminate\Http\Request;
 
 class AcaoController extends Controller
@@ -13,7 +14,7 @@ class AcaoController extends Controller
      */
     public function index()
     {
-        //
+        return Acao::with('segmento')->get()->toJson(); //
     }
 
     /**

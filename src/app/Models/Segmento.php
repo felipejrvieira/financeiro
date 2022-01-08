@@ -10,4 +10,8 @@ class Segmento extends Model
     use HasFactory;
 
     protected $fillable = ['descricao'];
+
+    public function acoes(){
+        return $this->hasMany(Acao::class);
+    }
 }

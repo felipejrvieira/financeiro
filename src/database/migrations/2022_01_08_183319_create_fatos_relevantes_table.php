@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSegmentosTable extends Migration
+class CreateFatosRelevantesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class CreateSegmentosTable extends Migration
      */
     public function up()
     {
-        Schema::create('segmentos', function (Blueprint $table) {
+        Schema::create('fatos_relevantes', function (Blueprint $table) {
             $table->id();
-            $table->string('descricao');
+            $table->foreignId('acao_id')->constrained('acoes');
+            $table->foreignId('user_id')->constrained();
+            $table->date('divulgado_em');
+            $table->string('resumo');
+            $table->string('url');
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ class CreateSegmentosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('segmentos');
+        Schema::dropIfExists('fatos_relevantes');
     }
 }

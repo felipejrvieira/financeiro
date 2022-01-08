@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Segmento;
 use Illuminate\Http\Request;
 
-class SegmentoController extends Controller
+class FatoRelevanteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +13,7 @@ class SegmentoController extends Controller
      */
     public function index()
     {
-       return Segmento::get()->toJson(); //
+        //
     }
 
     /**
@@ -25,7 +24,7 @@ class SegmentoController extends Controller
      */
     public function store(Request $request)
     {
-        Segmento::create($request->all());//
+        //
     }
 
     /**
@@ -36,7 +35,7 @@ class SegmentoController extends Controller
      */
     public function show($id)
     {
-        return Segmento::find($id)->toJson();//
+        //
     }
 
     /**
@@ -48,7 +47,7 @@ class SegmentoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Segmento::find($id)->update($request->all());
+        //
     }
 
     /**
@@ -59,6 +58,6 @@ class SegmentoController extends Controller
      */
     public function destroy($id)
     {
-        Segmento::find($id)->delete();
+        //
     }
 }

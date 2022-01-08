@@ -12,4 +12,7 @@ class Acao extends Model
     protected $table = 'acoes';
     protected $fillable = ['ticket', 'nome', 'segmento_id'];
 
+    public function segmento(){
+        return $this->belongsTo(Segmento::class);
+    }
 }

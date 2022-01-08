@@ -17,6 +17,7 @@ class CreateOrdensTable extends Migration
             $table->id();
             $table->foreignId('acao_id')->constrained('acoes');
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('fato_id')->nullable()->constrained('fatos_relevantes');
             $table->char('tipo',1);
             $table->date('efetuado_em');
             $table->integer('quantidade');
