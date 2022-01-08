@@ -23,5 +23,6 @@ Route::get('/', function () {
 
 Route::apiResource('segmentos',SegmentoController::class);
 Route::apiResource('proventos', ProventoController::class);
+Route::apiResource('fatosrelevantes', FatoRelevanteController::class);
 Route::apiResource('acoes',AcaoController::class)->parameters(['acoes' => 'acao']);
 Route::apiResource('ordens',OrdemController::class)->parameters(['ordens' => 'ordem']);
