@@ -15,7 +15,7 @@ class CreateAcoesTable extends Migration
     {
         Schema::create('acoes', function (Blueprint $table) {
             $table->id();
-            $table->string('ticket');
+            $table->string('ticker');
             $table->string('nome')->nullable();
             $table->foreignId('segmento_id')->constrained();
             $table->timestamps();
