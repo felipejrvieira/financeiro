@@ -25,7 +25,7 @@ class AcaoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Acao::create($request->all());
     }
 
     /**
