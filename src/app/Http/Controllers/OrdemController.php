@@ -25,7 +25,7 @@ class OrdemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Ordem::create($request->all());//
     }
 
     /**

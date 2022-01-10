@@ -48,7 +48,7 @@ class AcaoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Acao::find($id)->update($request->all());
     }
 
     /**
