@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Provento;
 
 class ProventoController extends Controller
 {
@@ -13,7 +14,7 @@ class ProventoController extends Controller
      */
     public function index()
     {
-        //
+        return Provento::get()->toJson();
     }
 
     /**
@@ -24,7 +25,7 @@ class ProventoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Provento::create($request->all());//
     }
 
     /**

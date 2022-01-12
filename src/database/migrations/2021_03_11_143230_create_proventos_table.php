@@ -19,7 +19,7 @@ class CreateProventosTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('fato_id')->constrained('fatos_relevantes')->nullable();
             $table->string('tipo',4);
-            $table->date('data_com');
+            $table->date('data_com')->nullable();
             $table->date('pagamento_em')->nullable();
             $table->decimal('valor',8,2);
             $table->timestamps();

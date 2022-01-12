@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>insere_ordens</name>
+    <name>insere_proventos</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -427,32 +427,22 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2022/01/10 18:20:27.627</created_date>
+    <created_date>2022/01/11 17:48:49.556</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2022/01/10 18:20:27.627</modified_date>
-    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2022/01/11 17:48:49.556</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <order>
     <hop>
-      <from>ler ordens felipe</from>
-      <to>Add constants</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>ler ordens manoela</from>
-      <to>Add constants 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Add constants 2</from>
+      <from>Add constants</from>
       <to>Dummy (do nothing)</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Add constants</from>
+      <from>Add constants 2</from>
       <to>Dummy (do nothing)</to>
       <enabled>Y</enabled>
     </hop>
@@ -462,29 +452,39 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>monta json</from>
-      <to>insere ordens</to>
+      <from>ler proventos felipe</from>
+      <to>Add constants</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Stream lookup</from>
-      <to>Value mapper</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Value mapper</from>
-      <to>Select values</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Select values</from>
-      <to>monta json</to>
+      <from>ler proventos manoela</from>
+      <to>Add constants 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>recupera acoes</from>
       <to>Stream lookup</to>
       <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Modified JavaScript value</from>
+      <to>insere proventos</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Stream lookup</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
+      <to>If field value is null</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>If field value is null</from>
+      <to>Modified JavaScript value</to>
+      <enabled>N</enabled>
     </hop>
   </order>
   <step>
@@ -521,8 +521,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>464</xloc>
-      <yloc>144</yloc>
+      <xloc>336</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -560,8 +560,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>464</xloc>
-      <yloc>272</yloc>
+      <xloc>336</xloc>
+      <yloc>384</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -585,8 +585,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>608</xloc>
-      <yloc>208</yloc>
+      <xloc>480</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -610,7 +610,7 @@
         <name>Tipo</name>
         <rename>tipo</rename>
         <type>String</type>
-        <length>1</length>
+        <length>4</length>
         <precision>-2</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
@@ -624,10 +624,10 @@
         <storage_type/>
       </meta>
       <meta>
-        <name>Data</name>
-        <rename>efetuado_em</rename>
+        <name>Data-com</name>
+        <rename>data_com</rename>
         <type>String</type>
-        <length>8</length>
+        <length>-2</length>
         <precision>-2</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
@@ -641,12 +641,12 @@
         <storage_type/>
       </meta>
       <meta>
-        <name>Qtd.</name>
-        <rename>quantidade</rename>
-        <type>Integer</type>
-        <length>15</length>
-        <precision>0</precision>
-        <conversion_mask/>
+        <name>Pagamento</name>
+        <rename>pagamento_em</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>dd/MM/yyyy</conversion_mask>
         <date_format_lenient>false</date_format_lenient>
         <date_format_locale/>
         <date_format_timezone/>
@@ -659,27 +659,10 @@
       </meta>
       <meta>
         <name>Valor</name>
-        <rename>preco</rename>
+        <rename>valor</rename>
         <type>Number</type>
-        <length>6</length>
-        <precision>2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>Taxas</name>
-        <rename>taxa</rename>
-        <type>Number</type>
-        <length>4</length>
-        <precision>3</precision>
+        <length>12</length>
+        <precision>9</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
         <date_format_locale/>
@@ -735,8 +718,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>960</xloc>
-      <yloc>208</yloc>
+      <xloc>720</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -777,51 +760,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>736</xloc>
-      <yloc>208</yloc>
+      <xloc>608</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Value mapper</name>
-    <type>ValueMapper</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <field_to_use>Tipo</field_to_use>
-    <target_field/>
-    <non_match_default/>
-    <fields>
-      <field>
-        <source_value>Compra</source_value>
-        <target_value>C</target_value>
-      </field>
-      <field>
-        <source_value>Venda</source_value>
-        <target_value>V</target_value>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>848</xloc>
-      <yloc>208</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>insere ordens</name>
+    <name>insere proventos</name>
     <type>Rest</type>
     <description/>
     <distribute>Y</distribute>
@@ -833,7 +778,7 @@
     </partitioning>
     <applicationType>JSON</applicationType>
     <method>POST</method>
-    <url>http://localhost/ordens</url>
+    <url>http://localhost/proventos</url>
     <urlInField>N</urlInField>
     <dynamicMethod>N</dynamicMethod>
     <methodFieldName/>
@@ -867,13 +812,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1168</xloc>
-      <yloc>208</yloc>
+      <xloc>1056</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>ler ordens felipe</name>
+    <name>ler proventos felipe</name>
     <type>CsvInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -883,7 +828,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${Internal.Entry.Current.Directory}/../dados/ordens-felipe.csv</filename>
+    <filename>${Internal.Entry.Current.Directory}/../dados/proventos-felipe.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -913,162 +858,44 @@
         <name>Tipo</name>
         <type>String</type>
         <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>6</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Data</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>8</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Qtd.</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Valor</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>9</length>
-        <precision>6</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Taxas</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>5</length>
-        <precision>2</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>320</xloc>
-      <yloc>144</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>ler ordens manoela</name>
-    <type>CsvInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <filename>${Internal.Entry.Current.Directory}/../dados/ordens-manoela.csv</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>;</separator>
-    <enclosure>"</enclosure>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <format>mixed</format>
-    <encoding/>
-    <fields>
-      <field>
-        <name>Ação</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>6</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Tipo</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>6</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Data</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>8</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Qtd.</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Valor</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>6</length>
-        <precision>3</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Taxas</name>
-        <type>Number</type>
-        <format>#.#</format>
         <currency>R$</currency>
         <decimal>,</decimal>
         <group>.</group>
         <length>4</length>
-        <precision>2</precision>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>Data-com</name>
+        <type>Date</type>
+        <format>dd/MM/yyyy</format>
+        <currency>R$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>Pagamento</name>
+        <type>Date</type>
+        <format>dd/MM/yyyy</format>
+        <currency>R$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>Valor</name>
+        <type>Number</type>
+        <format>#.#</format>
+        <currency>R$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>12</length>
+        <precision>9</precision>
         <trim_type>none</trim_type>
       </field>
     </fields>
@@ -1081,14 +908,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>320</xloc>
-      <yloc>272</yloc>
+      <xloc>192</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>monta json</name>
-    <type>ScriptValueMod</type>
+    <name>ler proventos manoela</name>
+    <type>CsvInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1097,35 +924,75 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>//Script here
-
-var json = {
-	"acao_id":acao_id,
-	"user_id":user_id,
-	"tipo":tipo.toString(),
-	"efetuado_em":efetuado_em.toString(),
-	"quantidade":quantidade,
-	"preco":preco,
-	"taxa":taxa
-}
-
-var json = JSON.stringify(json)</jsScript_script>
-      </jsScript>
-    </jsScripts>
+    <filename>${Internal.Entry.Current.Directory}/../dados/proventos-manoela.csv</filename>
+    <filename_field/>
+    <rownum_field/>
+    <include_filename>N</include_filename>
+    <separator>;</separator>
+    <enclosure>"</enclosure>
+    <header>Y</header>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>Y</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>N</newline_possible>
+    <format>mixed</format>
+    <encoding/>
     <fields>
       <field>
-        <name>json</name>
-        <rename>json</rename>
+        <name>Ação</name>
         <type>String</type>
+        <format/>
+        <currency>R$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>6</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>Tipo</name>
+        <type>String</type>
+        <format/>
+        <currency>R$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>4</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>Data-Com</name>
+        <type>Date</type>
+        <format>dd/MM/yyyy</format>
+        <currency>R$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
         <length>-1</length>
         <precision>-1</precision>
-        <replace>N</replace>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>Pagamento</name>
+        <type>Date</type>
+        <format>dd/MM/yyyy</format>
+        <currency>R$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>8</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>Valor</name>
+        <type>Number</type>
+        <format>#.#</format>
+        <currency>R$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>12</length>
+        <precision>9</precision>
+        <trim_type>none</trim_type>
       </field>
     </fields>
     <attributes/>
@@ -1137,8 +1004,8 @@ var json = JSON.stringify(json)</jsScript_script>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1056</xloc>
-      <yloc>208</yloc>
+      <xloc>192</xloc>
+      <yloc>384</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1198,8 +1065,106 @@ var json = JSON.stringify(json)</jsScript_script>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>736</xloc>
+      <xloc>608</xloc>
+      <yloc>432</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Modified JavaScript value</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>//Script here
+
+var json = {
+	"acao_id":acao_id,
+	"user_id":user_id,
+	"tipo":tipo.toString(),
+	"pagamento_em":pagamento_em.toString(),
+	"valor":valor
+}
+
+//if(data_com != null){
+// json["data_com"] = data_com.toString()
+//}
+
+var json = JSON.stringify(json)</jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field>
+        <name>json</name>
+        <rename>json</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>960</xloc>
       <yloc>320</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>If field value is null</name>
+    <type>IfNull</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <replaceAllByValue/>
+    <replaceAllMask/>
+    <selectFields>Y</selectFields>
+    <selectValuesType>N</selectValuesType>
+    <setEmptyStringAll>N</setEmptyStringAll>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>data_com</name>
+        <value>1</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>832</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
