@@ -48,7 +48,7 @@ class OrdemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Ordem::find($id)->update($request->all());
     }
 
     /**

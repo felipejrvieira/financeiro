@@ -5,6 +5,7 @@ use App\Http\Controllers\SegmentoController;
 use App\Http\Controllers\AcaoController;
 use App\Http\Controllers\OrdemController;
 use App\Http\Controllers\ProventoController;
+use App\Http\Controllers\FatoRelevanteController;
 
 /*
 |--------------------------------------------------------------------------

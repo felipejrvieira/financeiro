@@ -48,7 +48,7 @@ class ProventoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Provento::find($id)->update($request->all());
     }
 
     /**

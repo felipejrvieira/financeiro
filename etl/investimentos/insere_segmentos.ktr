@@ -435,21 +435,43 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>Realiza a inserção dos segmentos que aparecem
+nas planilhas da B3</note>
+      <xloc>336</xloc>
+      <yloc>96</yloc>
+      <width>325</width>
+      <heigth>48</heigth>
+      <fontname>Cantarell</fontname>
+      <fontsize>11</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <order>
     <hop>
-      <from>Modified JavaScript value</from>
+      <from>monta json</from>
       <to>REST client</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>ordenar por segmento</from>
-      <to>Unique rows</to>
+      <to>apenas linhas unicas</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Unique rows</from>
-      <to>Modified JavaScript value</to>
+      <from>apenas linhas unicas</from>
+      <to>monta json</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -464,7 +486,7 @@
     </hop>
   </order>
   <step>
-    <name>Modified JavaScript value</name>
+    <name>monta json</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
@@ -566,7 +588,7 @@ var json = JSON.stringify(json)</jsScript_script>
     </GUI>
   </step>
   <step>
-    <name>Unique rows</name>
+    <name>apenas linhas unicas</name>
     <type>Unique</type>
     <description/>
     <distribute>Y</distribute>

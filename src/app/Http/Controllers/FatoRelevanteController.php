@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FatoRelevante;
 use Illuminate\Http\Request;
 
 class FatoRelevanteController extends Controller
@@ -13,7 +14,7 @@ class FatoRelevanteController extends Controller
      */
     public function index()
     {
-        //
+        return FatoRelevante::get()->toJson();
     }
 
     /**
@@ -24,7 +25,7 @@ class FatoRelevanteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        FatoRelevante::create($request->all());
     }
 
     /**

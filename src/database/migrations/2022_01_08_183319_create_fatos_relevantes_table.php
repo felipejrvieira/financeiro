@@ -16,7 +16,6 @@ class CreateFatosRelevantesTable extends Migration
         Schema::create('fatos_relevantes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('acao_id')->constrained('acoes');
-            $table->foreignId('user_id')->constrained();
             $table->date('divulgado_em');
             $table->string('resumo');
             $table->string('url');

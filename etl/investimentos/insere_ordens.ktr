@@ -434,31 +434,54 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>Realiza a inserção do histórico de ordens
+realizadas no período que eu invisto na
+bolsa de valores.</note>
+      <xloc>432</xloc>
+      <yloc>176</yloc>
+      <width>274</width>
+      <heigth>67</heigth>
+      <fontname>Cantarell</fontname>
+      <fontsize>11</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <order>
     <hop>
       <from>ler ordens felipe</from>
-      <to>Add constants</to>
+      <to>adiciona usuario felipe</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>ler ordens manoela</from>
-      <to>Add constants 2</to>
+      <to>adiciona usuario manu</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Add constants 2</from>
-      <to>Dummy (do nothing)</to>
+      <from>adiciona usuario manu</from>
+      <to>une fluxo</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Add constants</from>
-      <to>Dummy (do nothing)</to>
+      <from>adiciona usuario felipe</from>
+      <to>une fluxo</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Dummy (do nothing)</from>
-      <to>Stream lookup</to>
+      <from>une fluxo</from>
+      <to>lookup com acoes</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -467,28 +490,28 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Stream lookup</from>
-      <to>Value mapper</to>
+      <from>lookup com acoes</from>
+      <to>mapeia tipo</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Value mapper</from>
-      <to>Select values</to>
+      <from>mapeia tipo</from>
+      <to>formata valores</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Select values</from>
+      <from>formata valores</from>
       <to>monta json</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>recupera acoes</from>
-      <to>Stream lookup</to>
+      <to>lookup com acoes</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Add constants</name>
+    <name>adiciona usuario felipe</name>
     <type>Constant</type>
     <description/>
     <distribute>Y</distribute>
@@ -521,13 +544,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>464</xloc>
-      <yloc>144</yloc>
+      <xloc>304</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Add constants 2</name>
+    <name>adiciona usuario manu</name>
     <type>Constant</type>
     <description/>
     <distribute>Y</distribute>
@@ -560,13 +583,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>464</xloc>
-      <yloc>272</yloc>
+      <xloc>304</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Dummy (do nothing)</name>
+    <name>une fluxo</name>
     <type>Dummy</type>
     <description/>
     <distribute>N</distribute>
@@ -585,13 +608,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>608</xloc>
-      <yloc>208</yloc>
+      <xloc>448</xloc>
+      <yloc>336</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Select values</name>
+    <name>formata valores</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -735,13 +758,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>960</xloc>
-      <yloc>208</yloc>
+      <xloc>784</xloc>
+      <yloc>336</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Stream lookup</name>
+    <name>lookup com acoes</name>
     <type>StreamLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -777,13 +800,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>736</xloc>
-      <yloc>208</yloc>
+      <xloc>576</xloc>
+      <yloc>336</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Value mapper</name>
+    <name>mapeia tipo</name>
     <type>ValueMapper</type>
     <description/>
     <distribute>Y</distribute>
@@ -815,8 +838,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>848</xloc>
-      <yloc>208</yloc>
+      <xloc>688</xloc>
+      <yloc>336</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -867,8 +890,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1168</xloc>
-      <yloc>208</yloc>
+      <xloc>976</xloc>
+      <yloc>336</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -974,8 +997,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>320</xloc>
-      <yloc>144</yloc>
+      <xloc>160</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1081,8 +1104,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>320</xloc>
-      <yloc>272</yloc>
+      <xloc>160</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1137,8 +1160,8 @@ var json = JSON.stringify(json)</jsScript_script>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1056</xloc>
-      <yloc>208</yloc>
+      <xloc>880</xloc>
+      <yloc>336</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1198,8 +1221,8 @@ var json = JSON.stringify(json)</jsScript_script>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>736</xloc>
-      <yloc>320</yloc>
+      <xloc>576</xloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
