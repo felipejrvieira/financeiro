@@ -14,4 +14,9 @@ class FatoRelevante extends Model
     protected $casts = [
         'divulgado_em' => 'date',
     ];
+
+    public function acao()
+    {
+        return $this->belongsTo(Acao::class);
+    }
 }

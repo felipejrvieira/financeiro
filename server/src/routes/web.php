@@ -27,3 +27,6 @@ Route::apiResource('proventos', ProventoController::class);
 Route::apiResource('fatosrelevantes', FatoRelevanteController::class);
 Route::apiResource('acoes',AcaoController::class)->parameters(['acoes' => 'acao']);
 Route::apiResource('ordens',OrdemController::class)->parameters(['ordens' => 'ordem']);
+Route::apiResource('contas', ContaController::class);
+Route::apiResource('categorias', CategoriaController::class);
+Route::apiResource('momvimentacoes',MovimentacaoController::class)->parameters(['movimentacoes' => 'movimentacao']);

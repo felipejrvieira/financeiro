@@ -1,0 +1,3 @@
+docker run --rm -it -v /home/felipejrvieira/Projetos/financeiro/client:/home -p 80:8080 node:slim bash
+npm install -g vue-cli@2.7.0
+vue init webpack-simple client

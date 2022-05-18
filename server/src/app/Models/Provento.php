@@ -15,4 +15,14 @@ class Provento extends Model
         'pagamento_em' => 'date',
         'valor' => 'decimal:2',
     ];
+
+    public function acao()
+    {
+        return $this->belongsTo(Acao::class);
+    }
+
+    public function fatoRelevante()
+    {
+        return $this->belongsTo(FatoRelevante::class);
+    }
 }
