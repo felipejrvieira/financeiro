@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
@@ -14,7 +14,7 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        return Categoria::with('subcategorias')->get()->toJson(); //
+        return Categoria::with('superior')->get()->toJson(); //
     }
 
     /**

@@ -11,7 +11,7 @@ class Movimentacao extends Model
 
     protected $table = 'movimentacoes';
     protected $dateFormat = 'd/m/y';
-    protected $fillable = ['descricao', 'executada_em', 'valor', 'conta_id','categoria_id','user_id'];
+    protected $fillable = ['nome','descricao', 'executada_em', 'valor', 'conta_id','categoria_id','user_id'];
     protected $casts = [
         'efetuado_em' => 'date',
         'preco' => 'decimal:2',

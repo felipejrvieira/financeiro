@@ -6,6 +6,9 @@ use App\Http\Controllers\AcaoController;
 use App\Http\Controllers\OrdemController;
 use App\Http\Controllers\ProventoController;
 use App\Http\Controllers\FatoRelevanteController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ContaController;
+use App\Http\Controllers\MovimentacaoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +32,4 @@ Route::apiResource('acoes',AcaoController::class)->parameters(['acoes' => 'acao'
 Route::apiResource('ordens',OrdemController::class)->parameters(['ordens' => 'ordem']);
 Route::apiResource('contas', ContaController::class);
 Route::apiResource('categorias', CategoriaController::class);
-Route::apiResource('momvimentacoes',MovimentacaoController::class)->parameters(['movimentacoes' => 'movimentacao']);
+Route::apiResource('movimentacoes',MovimentacaoController::class)->parameters(['movimentacoes' => 'movimentacao']);

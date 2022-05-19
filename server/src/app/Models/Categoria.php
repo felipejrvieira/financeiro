@@ -17,7 +17,7 @@ class Categoria extends Model
 
     public function superior()
     {
-        return $this->belongsTo(Categoria::class);
+        return $this->belongsTo(Categoria::class,'categoria_id');
     }
 
     public function movimentacoes(){

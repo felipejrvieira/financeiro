@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Movimentacao;
 use Illuminate\Http\Request;
 
 class MovimentacaoController extends Controller

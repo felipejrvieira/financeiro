@@ -15,7 +15,8 @@ class CreateMovimentacoesTable extends Migration
     {
         Schema::create('movimentacoes', function (Blueprint $table) {
             $table->id();
-            $table->string('descricao');
+            $table->string('nome');
+            $table->string('descricao')->nullable();
             $table->date('executada_em');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('conta_id')->constrained('contas');
