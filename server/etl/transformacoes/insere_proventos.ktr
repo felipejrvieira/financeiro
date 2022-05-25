@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>insere_fatos</name>
+    <name>insere_proventos</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -427,22 +427,21 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2022/01/12 16:47:32.436</created_date>
+    <created_date>2022/01/11 17:48:49.556</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2022/01/12 16:47:32.436</modified_date>
+    <modified_date>2022/01/11 17:48:49.556</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
     <notepad>
-      <note>Realiza a inserção de fatos relevantes
-que geraram novas ações ou bonificações
-como por exemplo: desdobramentos e
-distribuição de ações.</note>
+      <note>Realiza a inserção do histórico de proventos
+recebidos no período que eu invisto na
+bolsa de valores.</note>
       <xloc>480</xloc>
-      <yloc>192</yloc>
-      <width>280</width>
-      <heigth>86</heigth>
+      <yloc>176</yloc>
+      <width>294</width>
+      <heigth>67</heigth>
       <fontname>Cantarell</fontname>
       <fontsize>11</fontsize>
       <fontbold>N</fontbold>
@@ -461,18 +460,28 @@ distribuição de ações.</note>
   </notepads>
   <order>
     <hop>
-      <from>monta json</from>
-      <to>insere fatos</to>
+      <from>adiciona usuario felipe</from>
+      <to>une fluxo</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>formata valores</from>
-      <to>monta json</to>
+      <from>adiciona usuario manu</from>
+      <to>une fluxo</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>lookup com acoes</from>
-      <to>formata valores</to>
+      <from>une fluxo</from>
+      <to>lookup com acoes</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>ler proventos felipe</from>
+      <to>adiciona usuario felipe</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>ler proventos manoela</from>
+      <to>adiciona usuario manu</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -481,14 +490,29 @@ distribuição de ações.</note>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>ler fatos felipe</from>
-      <to>lookup com acoes</to>
+      <from>monta json</from>
+      <to>insere proventos</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>lookup com acoes</from>
+      <to>formata valores</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>formata valores</from>
+      <to>tornar - em null</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>tornar - em null</from>
+      <to>monta json</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>monta json</name>
-    <type>ScriptValueMod</type>
+    <name>adiciona usuario felipe</name>
+    <type>Constant</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -497,32 +521,18 @@ distribuição de ações.</note>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>//Script here
-
-var json = {
-	"acao_id":acao_id,
-	"resumo":resumo.toString(),
-	"divulgado_em":divulgado_em.toString(),
-	"url":url.toString()
-}
-
-var json = JSON.stringify(json)</jsScript_script>
-      </jsScript>
-    </jsScripts>
     <fields>
       <field>
-        <name>json</name>
-        <rename>json</rename>
-        <type>String</type>
+        <name>usuario_id</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>1</nullif>
         <length>-1</length>
         <precision>-1</precision>
-        <replace>N</replace>
+        <set_empty_string>N</set_empty_string>
       </field>
     </fields>
     <attributes/>
@@ -534,8 +544,47 @@ var json = JSON.stringify(json)</jsScript_script>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>736</xloc>
-      <yloc>320</yloc>
+      <xloc>336</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>adiciona usuario manu</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>usuario_id</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>2</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>352</xloc>
+      <yloc>384</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -556,9 +605,43 @@ var json = JSON.stringify(json)</jsScript_script>
         <name>Ação</name>
       </remove>
       <meta>
-        <name>Data</name>
-        <rename>divulgado_em</rename>
-        <type>None</type>
+        <name>Tipo</name>
+        <rename>tipo</rename>
+        <type>String</type>
+        <length>4</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>Data-com</name>
+        <rename>data_com</rename>
+        <type>String</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type>normal</storage_type>
+      </meta>
+      <meta>
+        <name>Pagamento</name>
+        <rename>pagamento_em</rename>
+        <type>String</type>
         <length>-2</length>
         <precision>-2</precision>
         <conversion_mask/>
@@ -573,11 +656,11 @@ var json = JSON.stringify(json)</jsScript_script>
         <storage_type/>
       </meta>
       <meta>
-        <name>Resumo</name>
-        <rename>resumo</rename>
-        <type>None</type>
-        <length>200</length>
-        <precision>-2</precision>
+        <name>Valor</name>
+        <rename>valor</rename>
+        <type>Number</type>
+        <length>12</length>
+        <precision>9</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
         <date_format_locale/>
@@ -590,11 +673,11 @@ var json = JSON.stringify(json)</jsScript_script>
         <storage_type/>
       </meta>
       <meta>
-        <name>Link</name>
-        <rename>url</rename>
-        <type>None</type>
-        <length>120</length>
-        <precision>-2</precision>
+        <name>usuario_id</name>
+        <rename>user_id</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>0</precision>
         <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
         <date_format_locale/>
@@ -609,7 +692,7 @@ var json = JSON.stringify(json)</jsScript_script>
       <meta>
         <name>acao_id</name>
         <rename>acao_id</rename>
-        <type>None</type>
+        <type>Integer</type>
         <length>-2</length>
         <precision>0</precision>
         <conversion_mask/>
@@ -633,8 +716,252 @@ var json = JSON.stringify(json)</jsScript_script>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>624</xloc>
+      <xloc>720</xloc>
       <yloc>320</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>insere proventos</name>
+    <type>Rest</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <applicationType>JSON</applicationType>
+    <method>POST</method>
+    <url>http://localhost/proventos</url>
+    <urlInField>N</urlInField>
+    <dynamicMethod>N</dynamicMethod>
+    <methodFieldName/>
+    <urlField/>
+    <bodyField>json</bodyField>
+    <httpLogin/>
+    <httpPassword>Encrypted </httpPassword>
+    <proxyHost/>
+    <proxyPort/>
+    <preemptive>N</preemptive>
+    <trustStoreFile/>
+    <trustStorePassword>Encrypted </trustStorePassword>
+    <headers>
+      </headers>
+    <parameters>
+      </parameters>
+    <matrixParameters>
+      </matrixParameters>
+    <result>
+      <name>result</name>
+      <code/>
+      <response_time/>
+      <response_header/>
+    </result>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1008</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>ler proventos felipe</name>
+    <type>CsvInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <filename>${Internal.Entry.Current.Directory}/../dados/proventos-felipe.csv</filename>
+    <filename_field/>
+    <rownum_field/>
+    <include_filename>N</include_filename>
+    <separator>;</separator>
+    <enclosure>"</enclosure>
+    <header>Y</header>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>Y</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>N</newline_possible>
+    <format>mixed</format>
+    <encoding/>
+    <fields>
+      <field>
+        <name>Ação</name>
+        <type>String</type>
+        <format/>
+        <currency>R$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>6</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>Tipo</name>
+        <type>String</type>
+        <format/>
+        <currency>R$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>4</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>Data-com</name>
+        <type>String</type>
+        <format/>
+        <currency>R$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>Pagamento</name>
+        <type>String</type>
+        <format/>
+        <currency>R$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>Valor</name>
+        <type>Number</type>
+        <format>#.#</format>
+        <currency>R$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>12</length>
+        <precision>9</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>192</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>ler proventos manoela</name>
+    <type>CsvInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <filename>${Internal.Entry.Current.Directory}/../dados/proventos-manoela.csv</filename>
+    <filename_field/>
+    <rownum_field/>
+    <include_filename>N</include_filename>
+    <separator>;</separator>
+    <enclosure>"</enclosure>
+    <header>Y</header>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>Y</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>N</newline_possible>
+    <format>mixed</format>
+    <encoding/>
+    <fields>
+      <field>
+        <name>Ação</name>
+        <type>String</type>
+        <format/>
+        <currency>R$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>6</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>Tipo</name>
+        <type>String</type>
+        <format/>
+        <currency>R$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>4</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>Data-Com</name>
+        <type>String</type>
+        <format/>
+        <currency>R$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>Pagamento</name>
+        <type>String</type>
+        <format/>
+        <currency>R$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>8</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>Valor</name>
+        <type>Number</type>
+        <format>#.#</format>
+        <currency>R$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>12</length>
+        <precision>9</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>192</xloc>
+      <yloc>384</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -675,14 +1002,14 @@ var json = JSON.stringify(json)</jsScript_script>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>512</xloc>
+      <xloc>592</xloc>
       <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>insere fatos</name>
-    <type>Rest</type>
+    <name>monta json</name>
+    <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -691,116 +1018,37 @@ var json = JSON.stringify(json)</jsScript_script>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <applicationType>JSON</applicationType>
-    <method>POST</method>
-    <url>http://localhost/fatosrelevantes</url>
-    <urlInField>N</urlInField>
-    <dynamicMethod>N</dynamicMethod>
-    <methodFieldName/>
-    <urlField/>
-    <bodyField>json</bodyField>
-    <httpLogin/>
-    <httpPassword>Encrypted </httpPassword>
-    <proxyHost/>
-    <proxyPort/>
-    <preemptive>N</preemptive>
-    <trustStoreFile/>
-    <trustStorePassword>Encrypted </trustStorePassword>
-    <headers>
-      </headers>
-    <parameters>
-      </parameters>
-    <matrixParameters>
-      </matrixParameters>
-    <result>
-      <name>result</name>
-      <code/>
-      <response_time/>
-      <response_header/>
-    </result>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>832</xloc>
-      <yloc>320</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>ler fatos felipe</name>
-    <type>CsvInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <filename>${Internal.Entry.Current.Directory}/../dados/fatos-felipe.csv</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>;</separator>
-    <enclosure>"</enclosure>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <format>mixed</format>
-    <encoding/>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>//Script here
+
+var json = {
+	"acao_id":acao_id,
+	"user_id":user_id,
+	"tipo":tipo.toString(),
+	"pagamento_em":pagamento_em.toString(),
+	"valor":valor
+}
+
+if(data_com != null){
+ json.data_com = data_com.toString()
+}
+
+var json = JSON.stringify(json)</jsScript_script>
+      </jsScript>
+    </jsScripts>
     <fields>
       <field>
-        <name>Ação</name>
+        <name>json</name>
+        <rename>json</rename>
         <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>5</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Data</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
         <length>-1</length>
         <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Resumo</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>200</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Link</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>120</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
+        <replace>N</replace>
       </field>
     </fields>
     <attributes/>
@@ -812,7 +1060,7 @@ var json = JSON.stringify(json)</jsScript_script>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>400</xloc>
+      <xloc>912</xloc>
       <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
@@ -873,8 +1121,64 @@ var json = JSON.stringify(json)</jsScript_script>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>512</xloc>
+      <xloc>592</xloc>
       <yloc>432</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>tornar - em null</name>
+    <type>NullIf</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>data_com</name>
+        <value>-</value>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>816</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>une fluxo</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

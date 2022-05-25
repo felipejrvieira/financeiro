@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Ordem extends Model
 {
     use HasFactory;
 
     protected $table = 'ordens';
-    protected $dateFormat = 'd/m/y';
     protected $fillable = ['acao_id', 'user_id', 'fato_id', 'tipo', 'efetuado_em', 'quantidade', 'preco','taxa'];
     protected $casts = [
         'efetuado_em' => 'date',
@@ -26,5 +26,9 @@ class Ordem extends Model
     public function fatoRelevante()
     {
         return $this->belongsTo(FatoRelevante::class);
+    }
+
+    public function setEfetuadoEmAttribute($value) {
+        $this->attributes['efetuado_em'] = Carbon::createFromFormat('d/m/Y',$value);
     }
 }

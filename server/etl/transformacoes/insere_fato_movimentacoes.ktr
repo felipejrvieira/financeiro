@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>insere_ordens</name>
+    <name>insere_fato_movimentacoes</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -427,170 +427,156 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2022/01/10 18:20:27.627</created_date>
+    <created_date>2022/05/25 15:31:08.575</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2022/01/10 18:20:27.627</modified_date>
-    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2022/05/25 15:31:08.575</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
-    <notepad>
-      <note>Realiza a inserção do histórico de ordens
-realizadas no período que eu invisto na
-bolsa de valores.</note>
-      <xloc>432</xloc>
-      <yloc>176</yloc>
-      <width>274</width>
-      <heigth>67</heigth>
-      <fontname>Cantarell</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>205</backgroundcolorgreen>
-      <backgroundcolorblue>112</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
+  <connection>
+    <name>Datamart Financeiro</name>
+    <server/>
+    <type>SQLITE</type>
+    <access>JNDI</access>
+    <database>dm_financeiro</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>1521</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>Financeiro</name>
+    <server/>
+    <type>SQLITE</type>
+    <access>JNDI</access>
+    <database>financeiro</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>1521</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
   <order>
     <hop>
-      <from>ler ordens felipe</from>
-      <to>adiciona usuario felipe</to>
+      <from>dados movimentacao</from>
+      <to>converte data</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>ler ordens manoela</from>
-      <to>adiciona usuario manu</to>
+      <from>converte data</from>
+      <to>lookup tempo</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>adiciona usuario manu</from>
-      <to>une fluxo</to>
+      <from>lookup tempo</from>
+      <to>lookup categoria</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>adiciona usuario felipe</from>
-      <to>une fluxo</to>
+      <from>lookup categoria</from>
+      <to>lookup conta</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>une fluxo</from>
-      <to>lookup com acoes</to>
+      <from>lookup conta</from>
+      <to>lookup usuario</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>monta json</from>
-      <to>insere ordens</to>
+      <from>lookup usuario</from>
+      <to>acertando saida</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>lookup com acoes</from>
-      <to>mapeia tipo</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>mapeia tipo</from>
-      <to>formata valores</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>formata valores</from>
-      <to>monta json</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>recupera acoes</from>
-      <to>lookup com acoes</to>
+      <from>acertando saida</from>
+      <to>insercao dados</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>adiciona usuario felipe</name>
-    <type>Constant</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>usuario_id</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>1</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>304</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>adiciona usuario manu</name>
-    <type>Constant</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>usuario_id</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>2</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>304</xloc>
-      <yloc>400</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>une fluxo</name>
-    <type>Dummy</type>
+    <name>dados movimentacao</name>
+    <type>TableInput</type>
     <description/>
     <distribute>N</distribute>
     <custom_distribution/>
@@ -599,6 +585,162 @@ bolsa de valores.</note>
       <method>none</method>
       <schema_name/>
     </partitioning>
+    <connection>Financeiro</connection>
+    <sql>SELECT id,
+	executada_em,
+	user_id,
+	conta_id,
+	categoria_id,
+	valor 
+FROM movimentacoes
+#where year(executada_em) >= 2020 and month(executada_em) >=1
+#and year(executada_em) &lt;= 2021 and month(executada_em) >=1</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>BigNumber</type>
+        <storagetype>normal</storagetype>
+        <name>id</name>
+        <length>16</length>
+        <precision>0</precision>
+        <origin>Table input</origin>
+        <comments>id</comments>
+        <conversion_Mask>######0.0###################;-######0.0###################</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>America/Fortaleza</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Date</type>
+        <storagetype>normal</storagetype>
+        <name>executada_em</name>
+        <length>-1</length>
+        <precision>-1</precision>
+        <origin>Table input</origin>
+        <comments>executada_em</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>America/Fortaleza</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>BigNumber</type>
+        <storagetype>normal</storagetype>
+        <name>user_id</name>
+        <length>16</length>
+        <precision>0</precision>
+        <origin>Table input</origin>
+        <comments>user_id</comments>
+        <conversion_Mask>######0.0###################;-######0.0###################</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>America/Fortaleza</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>BigNumber</type>
+        <storagetype>normal</storagetype>
+        <name>conta_id</name>
+        <length>16</length>
+        <precision>0</precision>
+        <origin>Table input</origin>
+        <comments>conta_id</comments>
+        <conversion_Mask>######0.0###################;-######0.0###################</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>America/Fortaleza</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>BigNumber</type>
+        <storagetype>normal</storagetype>
+        <name>categoria_id</name>
+        <length>16</length>
+        <precision>0</precision>
+        <origin>Table input</origin>
+        <comments>categoria_id</comments>
+        <conversion_Mask>######0.0###################;-######0.0###################</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>America/Fortaleza</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Number</type>
+        <storagetype>normal</storagetype>
+        <name>valor</name>
+        <length>8</length>
+        <precision>2</precision>
+        <origin>Table input</origin>
+        <comments>valor</comments>
+        <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>America/Fortaleza</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -608,13 +750,13 @@ bolsa de valores.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>448</xloc>
-      <yloc>336</yloc>
+      <xloc>96</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>formata valores</name>
+    <name>converte data</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -625,17 +767,38 @@ bolsa de valores.</note>
       <schema_name/>
     </partitioning>
     <fields>
+      <field>
+        <name>id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>executada_em</name>
+        <rename/>
+      </field>
+      <field>
+        <name>user_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>conta_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>categoria_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>valor</name>
+        <rename/>
+      </field>
       <select_unspecified>N</select_unspecified>
-      <remove>
-        <name>Ação</name>
-      </remove>
       <meta>
-        <name>Tipo</name>
-        <rename>tipo</rename>
+        <name>executada_em</name>
+        <rename>executada_em</rename>
         <type>String</type>
-        <length>1</length>
+        <length>-2</length>
         <precision>-2</precision>
-        <conversion_mask/>
+        <conversion_mask>yyyyMMdd</conversion_mask>
         <date_format_lenient>false</date_format_lenient>
         <date_format_locale/>
         <date_format_timezone/>
@@ -647,12 +810,12 @@ bolsa de valores.</note>
         <storage_type/>
       </meta>
       <meta>
-        <name>Data</name>
-        <rename>efetuado_em</rename>
+        <name>categoria_id</name>
+        <rename>categoria_id</rename>
         <type>String</type>
-        <length>8</length>
+        <length>-2</length>
         <precision>-2</precision>
-        <conversion_mask/>
+        <conversion_mask>#</conversion_mask>
         <date_format_lenient>false</date_format_lenient>
         <date_format_locale/>
         <date_format_timezone/>
@@ -664,12 +827,12 @@ bolsa de valores.</note>
         <storage_type/>
       </meta>
       <meta>
-        <name>Qtd.</name>
-        <rename>quantidade</rename>
-        <type>Integer</type>
-        <length>15</length>
-        <precision>0</precision>
-        <conversion_mask/>
+        <name>conta_id</name>
+        <rename>conta_id</rename>
+        <type>String</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>#</conversion_mask>
         <date_format_lenient>false</date_format_lenient>
         <date_format_locale/>
         <date_format_timezone/>
@@ -681,63 +844,12 @@ bolsa de valores.</note>
         <storage_type/>
       </meta>
       <meta>
-        <name>Valor</name>
-        <rename>preco</rename>
-        <type>Number</type>
-        <length>6</length>
-        <precision>2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>Taxas</name>
-        <rename>taxa</rename>
-        <type>Number</type>
-        <length>4</length>
-        <precision>3</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>usuario_id</name>
+        <name>user_id</name>
         <rename>user_id</rename>
-        <type>Integer</type>
+        <type>String</type>
         <length>-2</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>acao_id</name>
-        <rename>acao_id</rename>
-        <type>Integer</type>
-        <length>-2</length>
-        <precision>0</precision>
-        <conversion_mask/>
+        <precision>-2</precision>
+        <conversion_mask>#</conversion_mask>
         <date_format_lenient>false</date_format_lenient>
         <date_format_locale/>
         <date_format_timezone/>
@@ -758,14 +870,14 @@ bolsa de valores.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>784</xloc>
-      <yloc>336</yloc>
+      <xloc>208</xloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>lookup com acoes</name>
-    <type>StreamLookup</type>
+    <name>lookup tempo</name>
+    <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -774,19 +886,25 @@ bolsa de valores.</note>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <from>recupera acoes</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
+    <connection>Datamart Financeiro</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
     <lookup>
+      <schema/>
+      <table>dimensao_tempo</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>Ação</name>
-        <field>ticker</field>
+        <name>executada_em</name>
+        <field>codigo</field>
+        <condition>=</condition>
+        <name2/>
       </key>
       <value>
         <name>id</name>
-        <rename>acao_id</rename>
+        <rename>data_id</rename>
         <default/>
         <type>None</type>
       </value>
@@ -800,14 +918,14 @@ bolsa de valores.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>576</xloc>
-      <yloc>336</yloc>
+      <xloc>288</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>mapeia tipo</name>
-    <type>ValueMapper</type>
+    <name>lookup categoria</name>
+    <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -816,18 +934,176 @@ bolsa de valores.</note>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <field_to_use>Tipo</field_to_use>
-    <target_field/>
-    <non_match_default/>
+    <connection>Datamart Financeiro</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>dimensao_categoria</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>categoria_id</name>
+        <field>codigo_categoria</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>id</name>
+        <rename>categoria_id</rename>
+        <default/>
+        <type>None</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>lookup conta</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Datamart Financeiro</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>dimensao_conta</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>conta_id</name>
+        <field>codigo_conta</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>id</name>
+        <rename>conta_id</rename>
+        <default/>
+        <type>None</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>448</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>lookup usuario</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Datamart Financeiro</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>dimensao_usuario</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>user_id</name>
+        <field>codigo</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>id</name>
+        <rename>usuario_id</rename>
+        <default/>
+        <type>None</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>528</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>acertando saida</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <fields>
       <field>
-        <source_value>Compra</source_value>
-        <target_value>C</target_value>
+        <name>id</name>
+        <rename>codigo_movimentacao</rename>
       </field>
       <field>
-        <source_value>Venda</source_value>
-        <target_value>V</target_value>
+        <name>data_id</name>
+        <rename/>
       </field>
+      <field>
+        <name>categoria_id_1</name>
+        <rename>categoria_id</rename>
+      </field>
+      <field>
+        <name>conta_id_1</name>
+        <rename>conta_id</rename>
+      </field>
+      <field>
+        <name>usuario_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>valor</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -838,14 +1114,14 @@ bolsa de valores.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>688</xloc>
-      <yloc>336</yloc>
+      <xloc>608</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>insere ordens</name>
-    <type>Rest</type>
+    <name>insercao dados</name>
+    <type>InsertUpdate</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -854,33 +1130,73 @@ bolsa de valores.</note>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <applicationType>JSON</applicationType>
-    <method>POST</method>
-    <url>http://localhost/ordens</url>
-    <urlInField>N</urlInField>
-    <dynamicMethod>N</dynamicMethod>
-    <methodFieldName/>
-    <urlField/>
-    <bodyField>json</bodyField>
-    <httpLogin/>
-    <httpPassword>Encrypted </httpPassword>
-    <proxyHost/>
-    <proxyPort/>
-    <preemptive>N</preemptive>
-    <trustStoreFile/>
-    <trustStorePassword>Encrypted </trustStorePassword>
-    <headers>
-      </headers>
-    <parameters>
-      </parameters>
-    <matrixParameters>
-      </matrixParameters>
-    <result>
-      <name>result</name>
-      <code/>
-      <response_time/>
-      <response_header/>
-    </result>
+    <connection>Datamart Financeiro</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>fato_movimentacoes</table>
+      <key>
+        <name>codigo_movimentacao</name>
+        <field>codigo_movimentacao</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>data_id</name>
+        <field>data_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>categoria_id</name>
+        <field>categoria_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>conta_id</name>
+        <field>conta_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>usuario_id</name>
+        <field>usuario_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>codigo_movimentacao</name>
+        <rename>codigo_movimentacao</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>data_id</name>
+        <rename>data_id</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>categoria_id</name>
+        <rename>categoria_id</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>conta_id</name>
+        <rename>conta_id</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>usuario_id</name>
+        <rename>usuario_id</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>valor</name>
+        <rename>valor</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -890,339 +1206,8 @@ bolsa de valores.</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>976</xloc>
-      <yloc>336</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>ler ordens felipe</name>
-    <type>CsvInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <filename>${Internal.Entry.Current.Directory}/../dados/ordens-felipe.csv</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>;</separator>
-    <enclosure>"</enclosure>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <format>mixed</format>
-    <encoding/>
-    <fields>
-      <field>
-        <name>Ação</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>6</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Tipo</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>6</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Data</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>8</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Qtd.</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Valor</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>9</length>
-        <precision>6</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Taxas</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>5</length>
-        <precision>2</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>160</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>ler ordens manoela</name>
-    <type>CsvInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <filename>${Internal.Entry.Current.Directory}/../dados/ordens-manoela.csv</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>;</separator>
-    <enclosure>"</enclosure>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <format>mixed</format>
-    <encoding/>
-    <fields>
-      <field>
-        <name>Ação</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>6</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Tipo</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>6</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Data</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>8</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Qtd.</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Valor</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>6</length>
-        <precision>3</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>Taxas</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>4</length>
-        <precision>2</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>160</xloc>
-      <yloc>400</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>monta json</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>//Script here
-
-var json = {
-	"acao_id":acao_id,
-	"user_id":user_id,
-	"tipo":tipo.toString(),
-	"efetuado_em":efetuado_em.toString(),
-	"quantidade":quantidade,
-	"preco":preco,
-	"taxa":taxa
-}
-
-var json = JSON.stringify(json)</jsScript_script>
-      </jsScript>
-    </jsScripts>
-    <fields>
-      <field>
-        <name>json</name>
-        <rename>json</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>880</xloc>
-      <yloc>336</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>recupera acoes</name>
-    <type>SimpleMapping</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <specification_method>filename</specification_method>
-    <trans_object_id/>
-    <trans_name/>
-    <filename>${Internal.Entry.Current.Directory}/recupera_acoes.ktr</filename>
-    <directory_path/>
-    <mappings>
-      <input>
-        <mapping>
-          <input_step/>
-          <output_step/>
-          <main_path>Y</main_path>
-          <rename_on_output>Y</rename_on_output>
-          <description/>
-        </mapping>
-      </input>
-      <output>
-        <mapping>
-          <input_step/>
-          <output_step/>
-          <main_path>Y</main_path>
-          <rename_on_output>N</rename_on_output>
-          <description/>
-          <connector>
-            <parent>id</parent>
-            <child>id</child>
-          </connector>
-          <connector>
-            <parent>ticker</parent>
-            <child>ticker</child>
-          </connector>
-        </mapping>
-      </output>
-      <parameters>
-        <inherit_all_vars>Y</inherit_all_vars>
-      </parameters>
-    </mappings>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>576</xloc>
-      <yloc>448</yloc>
+      <xloc>672</xloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

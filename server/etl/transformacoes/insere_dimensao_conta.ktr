@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>recupera_movimentacoes_guia_bolso</name>
+    <name>insere_dimensao_conta</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -427,67 +427,126 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2022/05/18 20:58:27.414</created_date>
+    <created_date>2022/05/25 15:21:29.681</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2022/05/18 20:58:27.414</modified_date>
-    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2022/05/25 15:21:29.681</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
+  <connection>
+    <name>Datamart Financeiro</name>
+    <server/>
+    <type>SQLITE</type>
+    <access>JNDI</access>
+    <database>dm_financeiro</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>1521</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>Financeiro</name>
+    <server/>
+    <type>SQLITE</type>
+    <access>JNDI</access>
+    <database>financeiro</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>1521</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
   <order>
     <hop>
-      <from>recupera arquivos</from>
-      <to>ler csv</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>formata saída</from>
-      <to>saída</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>ler csv</from>
-      <to>remove duplicados e deletados</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>remove duplicados e deletados</from>
-      <to>formata saída</to>
+      <from>consulta dos dados</from>
+      <to>insercao dados</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>entrada</name>
-    <type>MappingInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>224</xloc>
-      <yloc>320</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>formata saída</name>
-    <type>SelectValues</type>
+    <name>consulta dos dados</name>
+    <type>TableInput</type>
     <description/>
     <distribute>N</distribute>
     <custom_distribution/>
@@ -496,54 +555,85 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <fields>
-      <field>
-        <name>label</name>
-        <rename>nome</rename>
-      </field>
-      <field>
-        <name>description</name>
-        <rename>descricao</rename>
-      </field>
-      <field>
-        <name>date</name>
-        <rename/>
-      </field>
-      <field>
-        <name>account</name>
-        <rename>conta</rename>
-      </field>
-      <field>
-        <name>category</name>
-        <rename>categoria</rename>
-      </field>
-      <field>
-        <name>subcategory</name>
-        <rename>subcategoria</rename>
-      </field>
-      <field>
-        <name>value</name>
-        <rename>valor</rename>
-      </field>
-      <select_unspecified>N</select_unspecified>
-      <meta>
-        <name>date</name>
-        <rename>executada_em</rename>
-        <type>Date</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask>dd/MM/yyyy</conversion_mask>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
+    <connection>Financeiro</connection>
+    <sql>select id, nome, tipo from contas</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>BigNumber</type>
+        <storagetype>normal</storagetype>
+        <name>id</name>
+        <length>16</length>
+        <precision>0</precision>
+        <origin>consulta dos dados</origin>
+        <comments>id</comments>
+        <conversion_Mask>######0.0###################;-######0.0###################</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
         <grouping_symbol/>
         <currency_symbol/>
-        <storage_type/>
-      </meta>
-    </fields>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>America/Fortaleza</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>nome</name>
+        <length>255</length>
+        <precision>-1</precision>
+        <origin>consulta dos dados</origin>
+        <comments>nome</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>America/Fortaleza</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>tipo</name>
+        <length>255</length>
+        <precision>-1</precision>
+        <origin>consulta dos dados</origin>
+        <comments>tipo</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_US</date_format_locale>
+        <date_format_timezone>America/Fortaleza</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -553,14 +643,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>624</xloc>
-      <yloc>320</yloc>
+      <xloc>289</xloc>
+      <yloc>195</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>ler csv</name>
-    <type>CsvInput</type>
+    <name>insercao dados</name>
+    <type>InsertUpdate</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -569,143 +659,34 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${Internal.Entry.Current.Directory}/../dados/guiabolso/2021-12.csv</filename>
-    <filename_field>filename</filename_field>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>,</separator>
-    <enclosure>"</enclosure>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <format>mixed</format>
-    <encoding/>
-    <fields>
-      <field>
-        <name>﻿id</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>11</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>label</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>63</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>description</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>34</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>date</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>account</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>19</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>category</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>24</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>subcategory</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>24</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>duplicated</name>
-        <type>Boolean</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>currency</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>3</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>value</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>R$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>deleted</name>
-        <type>Boolean</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
+    <connection>Datamart Financeiro</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>dimensao_conta</table>
+      <key>
+        <name>id</name>
+        <field>codigo_conta</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>codigo_conta</name>
+        <rename>id</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>nome_conta</name>
+        <rename>nome</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>tipo_conta</name>
+        <rename>tipo</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -715,143 +696,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>432</xloc>
-      <yloc>320</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>recupera arquivos</name>
-    <type>GetFileNames</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <filter>
-      <filterfiletype>all_files</filterfiletype>
-    </filter>
-    <doNotFailIfNoFile>N</doNotFailIfNoFile>
-    <rownum>N</rownum>
-    <isaddresult>Y</isaddresult>
-    <filefield>N</filefield>
-    <rownum_field/>
-    <filename_Field/>
-    <wildcard_Field/>
-    <exclude_wildcard_Field/>
-    <dynamic_include_subfolders>N</dynamic_include_subfolders>
-    <limit>0</limit>
-    <file>
-      <name>${Internal.Entry.Current.Directory}/../../dados/guiabolso</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-    </file>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>336</xloc>
-      <yloc>240</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>remove duplicados e deletados</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to/>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <conditions>
-          <condition>
-            <negated>N</negated>
-            <leftvalue>deleted</leftvalue>
-            <function>=</function>
-            <rightvalue/>
-            <value>
-              <name>constant</name>
-              <type>Boolean</type>
-              <text>N</text>
-              <length>-1</length>
-              <precision>-1</precision>
-              <isnull>N</isnull>
-              <mask/>
-            </value>
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>duplicated</leftvalue>
-            <function>=</function>
-            <rightvalue/>
-            <value>
-              <name>constant</name>
-              <type>Boolean</type>
-              <text>N</text>
-              <length>-1</length>
-              <precision>-1</precision>
-              <isnull>N</isnull>
-              <mask/>
-            </value>
-          </condition>
-        </conditions>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>528</xloc>
-      <yloc>240</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>saída</name>
-    <type>MappingOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>736</xloc>
-      <yloc>320</yloc>
+      <xloc>416</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

@@ -1,10 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>insere_acoes</name>
+    <name>insere_dimensao_tempo</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -426,97 +428,115 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2022/01/09 08:43:39.096</created_date>
+    <created_date>2019/01/02 14:17:30.745</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2022/05/16 16:40:11.587</modified_date>
+    <modified_date>2019/01/02 15:46:35.147</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
-    <notepad>
-      <note>Realiza a inserção das ações que aparecem
-nas planilhas da B3 fazendo a vinculação com
-o segmento que foi inserido na etapa anterior</note>
-      <xloc>512</xloc>
-      <yloc>112</yloc>
-      <width>304</width>
-      <heigth>67</heigth>
-      <fontname>Cantarell</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>205</backgroundcolorgreen>
-      <backgroundcolorblue>112</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
+  <connection>
+    <name>Datamart Financeiro</name>
+    <server/>
+    <type>SQLITE</type>
+    <access>JNDI</access>
+    <database>dm_financeiro</database>
+    <port>1521</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>1521</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
   <order>
     <hop>
-      <from>define url</from>
-      <to>consulta segmentos</to>
+      <from>Gerar 4000 linhas</from>
+      <to>Incremento de Dia</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>consulta segmentos</from>
-      <to>formata json</to>
+      <from>Incremento de Dia</from>
+      <to>Calcula o dia</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>formata json</from>
-      <to>formata valores</to>
+      <from>Calcula o dia</from>
+      <to>Agregadores de Tempo</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>formata valores</from>
-      <to>lookup com segmento</to>
+      <from>Agregadores de Tempo</from>
+      <to>Achar o Semestre da Data</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>monta json</from>
-      <to>insere acoes</to>
+      <from>Achar o Semestre da Data</from>
+      <to>Nome do Trimestre</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>lookup com segmento</from>
-      <to>monta json</to>
+      <from>Nome do Trimestre</from>
+      <to>Nome do Semestre</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>lendo entrada</from>
-      <to>ordena por ticker</to>
+      <from>Nome do Semestre</from>
+      <to>Nome do Mês</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>ordena por ticker</from>
-      <to>junta pelo ticker</to>
+      <from>Nome do Mês</from>
+      <to>Exclui Colunas</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>acoes mapeadas</from>
-      <to>ordena por ticker antigo</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>ordena por ticker antigo</from>
-      <to>junta pelo ticker</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>junta pelo ticker</from>
-      <to>lookup com segmento</to>
+      <from>Exclui Colunas</from>
+      <to>Insercao dos dador</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>acoes mapeadas</name>
-    <type>CsvInput</type>
+    <name>Achar o Semestre da Data</name>
+    <type>ValueMapper</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -525,42 +545,25 @@ o segmento que foi inserido na etapa anterior</note>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>${Internal.Entry.Current.Directory}/../dados/conversao-acao.csv</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>;</separator>
-    <enclosure/>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <format>mixed</format>
-    <encoding/>
+    <field_to_use>Numero_Trimestre</field_to_use>
+    <target_field>Numero_Semestre</target_field>
+    <non_match_default/>
     <fields>
       <field>
-        <name>novo_ticker</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>11</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
+        <source_value>1</source_value>
+        <target_value>1</target_value>
       </field>
       <field>
-        <name>antigo_ticker</name>
-        <type>String</type>
-        <format/>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>6</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
+        <source_value>2</source_value>
+        <target_value>1</target_value>
+      </field>
+      <field>
+        <source_value>3</source_value>
+        <target_value>2</target_value>
+      </field>
+      <field>
+        <source_value>4</source_value>
+        <target_value>2</target_value>
       </field>
     </fields>
     <attributes/>
@@ -573,13 +576,13 @@ o segmento que foi inserido na etapa anterior</note>
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>96</yloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>consulta segmentos</name>
-    <type>Rest</type>
+    <name>Agregadores de Tempo</name>
+    <type>Calculator</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -588,33 +591,67 @@ o segmento que foi inserido na etapa anterior</note>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <applicationType>TEXT PLAIN</applicationType>
-    <method>GET</method>
-    <url/>
-    <urlInField>Y</urlInField>
-    <dynamicMethod>N</dynamicMethod>
-    <methodFieldName/>
-    <urlField>url</urlField>
-    <bodyField/>
-    <httpLogin/>
-    <httpPassword>Encrypted </httpPassword>
-    <proxyHost/>
-    <proxyPort/>
-    <preemptive>N</preemptive>
-    <trustStoreFile/>
-    <trustStorePassword>Encrypted </trustStorePassword>
-    <headers>
-      </headers>
-    <parameters>
-      </parameters>
-    <matrixParameters>
-      </matrixParameters>
-    <result>
-      <name>result</name>
-      <code/>
-      <response_time/>
-      <response_header/>
-    </result>
+    <failIfNoFile>Y</failIfNoFile>
+    <calculation>
+      <field_name>Numero_Dia_Semana</field_name>
+      <calc_type>DAY_OF_WEEK</calc_type>
+      <field_a>Data</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>String</value_type>
+      <value_length>50</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask>#</conversion_mask>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>Numero_Mes</field_name>
+      <calc_type>MONTH_OF_DATE</calc_type>
+      <field_a>Data</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>String</value_type>
+      <value_length>50</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask>#</conversion_mask>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>Numero_Ano</field_name>
+      <calc_type>YEAR_OF_DATE</calc_type>
+      <field_a>Data</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>String</value_type>
+      <value_length>50</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask>#</conversion_mask>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>Numero_Trimestre</field_name>
+      <calc_type>QUARTER_OF_DATE</calc_type>
+      <field_a>Data</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>String</value_type>
+      <value_length>50</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask>#</conversion_mask>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -624,13 +661,103 @@ o segmento que foi inserido na etapa anterior</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>528</xloc>
-      <yloc>544</yloc>
+      <xloc>352</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>define url</name>
+    <name>Calcula o dia</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <failIfNoFile>Y</failIfNoFile>
+    <calculation>
+      <field_name>Cod_Tempo</field_name>
+      <calc_type>ADD_DAYS</calc_type>
+      <field_a>Dia_Padrao</field_a>
+      <field_b>Incremento</field_b>
+      <field_c/>
+      <value_type>String</value_type>
+      <value_length>50</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask>yyyyMMdd</conversion_mask>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>Data</field_name>
+      <calc_type>ADD_DAYS</calc_type>
+      <field_a>Dia_Padrao</field_a>
+      <field_b>Incremento</field_b>
+      <field_c/>
+      <value_type>Date</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask>dd/MM/yyyy</conversion_mask>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>288</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Exclui Colunas</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <remove>
+        <name>Dia_Padrao</name>
+      </remove>
+      <remove>
+        <name>Incremento</name>
+      </remove>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>704</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Gerar 4000 linhas</name>
     <type>RowGenerator</type>
     <description/>
     <distribute>Y</distribute>
@@ -642,19 +769,19 @@ o segmento que foi inserido na etapa anterior</note>
     </partitioning>
     <fields>
       <field>
-        <name>url</name>
-        <type>String</type>
-        <format/>
+        <name>Dia_Padrao</name>
+        <type>Date</type>
+        <format>yyyyMMdd</format>
         <currency/>
         <decimal/>
         <group/>
-        <nullif>http://localhost/segmentos</nullif>
+        <nullif>20180101</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
       </field>
     </fields>
-    <limit>1</limit>
+    <limit>4000</limit>
     <never_ending>N</never_ending>
     <interval_in_ms>5000</interval_in_ms>
     <row_time_field>now</row_time_field>
@@ -668,14 +795,14 @@ o segmento que foi inserido na etapa anterior</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>400</xloc>
-      <yloc>544</yloc>
+      <xloc>128</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>formata json</name>
-    <type>JsonInput</type>
+    <name>Incremento de Dia</name>
+    <type>Sequence</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -684,228 +811,52 @@ o segmento que foi inserido na etapa anterior</note>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <include>N</include>
-    <include_field/>
-    <rownum>N</rownum>
-    <addresultfile>N</addresultfile>
-    <readurl>N</readurl>
-    <removeSourceField>N</removeSourceField>
-    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
-    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
-    <ignoreMissingPath>Y</ignoreMissingPath>
-    <defaultPathLeafToNull>Y</defaultPathLeafToNull>
-    <includeNulls>N</includeNulls>
-    <rownum_field/>
-    <file>
-      <name/>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-    </file>
+    <valuename>Incremento</valuename>
+    <use_database>N</use_database>
+    <connection>Datawarehouse Sucos</connection>
+    <schema/>
+    <seqname>SEQ_</seqname>
+    <use_counter>Y</use_counter>
+    <counter_name/>
+    <start_at>0</start_at>
+    <increment_by>1</increment_by>
+    <max_value>999999999</max_value>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>192</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Nome do Semestre</name>
+    <type>ValueMapper</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <field_to_use>Numero_Semestre</field_to_use>
+    <target_field>Nome_Semestre</target_field>
+    <non_match_default/>
     <fields>
       <field>
-        <name>id</name>
-        <path>$[*].id</path>
-        <type>Integer</type>
-        <format>#</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
+        <source_value>1</source_value>
+        <target_value>Primeiro Semestre</target_value>
       </field>
       <field>
-        <name>descricao</name>
-        <path>$[*].descricao</path>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-    </fields>
-    <limit>0</limit>
-    <IsInFields>Y</IsInFields>
-    <IsAFile>N</IsAFile>
-    <valueField>result</valueField>
-    <shortFileFieldName/>
-    <pathFieldName/>
-    <hiddenFieldName/>
-    <lastModificationTimeFieldName/>
-    <uriNameFieldName/>
-    <rootUriNameFieldName/>
-    <extensionFieldName/>
-    <sizeFieldName/>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>528</xloc>
-      <yloc>464</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>formata valores</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>id</name>
-      </field>
-      <field>
-        <name>descricao</name>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>528</xloc>
-      <yloc>384</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>insere acoes</name>
-    <type>Rest</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <applicationType>JSON</applicationType>
-    <method>POST</method>
-    <url>http://localhost/acoes</url>
-    <urlInField>N</urlInField>
-    <dynamicMethod>N</dynamicMethod>
-    <methodFieldName/>
-    <urlField/>
-    <bodyField>json</bodyField>
-    <httpLogin/>
-    <httpPassword>Encrypted </httpPassword>
-    <proxyHost/>
-    <proxyPort/>
-    <preemptive>N</preemptive>
-    <trustStoreFile/>
-    <trustStorePassword>Encrypted </trustStorePassword>
-    <headers>
-      </headers>
-    <parameters>
-      </parameters>
-    <matrixParameters>
-      </matrixParameters>
-    <result>
-      <name>result</name>
-      <code/>
-      <response_time/>
-      <response_header/>
-    </result>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>768</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>junta pelo ticker</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <join_type>INNER</join_type>
-    <step1>ordena por ticker antigo</step1>
-    <step2>ordena por ticker</step2>
-    <keys_1>
-      <key>antigo_ticker</key>
-    </keys_1>
-    <keys_2>
-      <key>TICKER</key>
-    </keys_2>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>416</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>lendo entrada</name>
-    <type>RowsFromResult</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>TICKER</name>
-        <type>None</type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>NOME</name>
-        <type>None</type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-      <field>
-        <name>SEGMENTO</name>
-        <type>None</type>
-        <length>-1</length>
-        <precision>-1</precision>
+        <source_value>2</source_value>
+        <target_value>Segundo Semestre</target_value>
       </field>
     </fields>
     <attributes/>
@@ -917,14 +868,14 @@ o segmento que foi inserido na etapa anterior</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>224</xloc>
-      <yloc>192</yloc>
+      <xloc>560</xloc>
+      <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>lookup com segmento</name>
-    <type>StreamLookup</type>
+    <name>Nome do Trimestre</name>
+    <type>ValueMapper</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -933,21 +884,191 @@ o segmento que foi inserido na etapa anterior</note>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <from>formata valores</from>
-    <input_sorted>N</input_sorted>
-    <preserve_memory>Y</preserve_memory>
-    <sorted_list>N</sorted_list>
-    <integer_pair>N</integer_pair>
+    <field_to_use>Numero_Trimestre</field_to_use>
+    <target_field>Nome_Trimestre</target_field>
+    <non_match_default/>
+    <fields>
+      <field>
+        <source_value>1</source_value>
+        <target_value>Primeiro Trimestre</target_value>
+      </field>
+      <field>
+        <source_value>2</source_value>
+        <target_value>Segundo Trimestre</target_value>
+      </field>
+      <field>
+        <source_value>3</source_value>
+        <target_value>Terceiro Trimestre</target_value>
+      </field>
+      <field>
+        <source_value>4</source_value>
+        <target_value>Quarto Trimestre</target_value>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>496</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Nome do Mês</name>
+    <type>ValueMapper</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <field_to_use>Numero_Mes</field_to_use>
+    <target_field>Nome_Mes</target_field>
+    <non_match_default/>
+    <fields>
+      <field>
+        <source_value>1</source_value>
+        <target_value>Janeiro</target_value>
+      </field>
+      <field>
+        <source_value>2</source_value>
+        <target_value>Fevereiro</target_value>
+      </field>
+      <field>
+        <source_value>3</source_value>
+        <target_value>Março</target_value>
+      </field>
+      <field>
+        <source_value>4</source_value>
+        <target_value>Abril</target_value>
+      </field>
+      <field>
+        <source_value>5</source_value>
+        <target_value>Maio</target_value>
+      </field>
+      <field>
+        <source_value>6</source_value>
+        <target_value>Junho</target_value>
+      </field>
+      <field>
+        <source_value>7</source_value>
+        <target_value>Julho</target_value>
+      </field>
+      <field>
+        <source_value>8</source_value>
+        <target_value>Agosto</target_value>
+      </field>
+      <field>
+        <source_value>9</source_value>
+        <target_value>Setembro</target_value>
+      </field>
+      <field>
+        <source_value>10</source_value>
+        <target_value>Outubro</target_value>
+      </field>
+      <field>
+        <source_value>11</source_value>
+        <target_value>Novembro</target_value>
+      </field>
+      <field>
+        <source_value>12</source_value>
+        <target_value>Dezembro</target_value>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>624</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Insercao dos dador</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Datamart Financeiro</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
     <lookup>
+      <schema/>
+      <table>dimensao_tempo</table>
       <key>
-        <name>SEGMENTO</name>
-        <field>descricao</field>
+        <name>Cod_Tempo</name>
+        <field>codigo</field>
+        <condition>=</condition>
+        <name2/>
       </key>
       <value>
-        <name>id</name>
-        <rename>segmento_id</rename>
-        <default/>
-        <type>Integer</type>
+        <name>codigo</name>
+        <rename>Cod_Tempo</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>data</name>
+        <rename>Data</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>numero_dia_semana</name>
+        <rename>Numero_Dia_Semana</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>numero_mes</name>
+        <rename>Numero_Mes</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>numero_ano</name>
+        <rename>Numero_Ano</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>numero_trimestre</name>
+        <rename>Numero_Trimestre</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>numero_semestre</name>
+        <rename>Numero_Semestre</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>nome_trimestre</name>
+        <rename>Nome_Trimestre</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>nome_semestre</name>
+        <rename>Nome_Semestre</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>nome_mes</name>
+        <rename>Nome_Mes</rename>
+        <update>Y</update>
       </value>
     </lookup>
     <attributes/>
@@ -959,144 +1080,8 @@ o segmento que foi inserido na etapa anterior</note>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>528</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>monta json</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>
-      <jsScript>
-        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>//Script here
-
-var json = {
-	"ticker":novo_ticker.toString(),
-	"nome":NOME.toString(),
-	"segmento_id":segmento_id
-}
-
-var json = JSON.stringify(json)</jsScript_script>
-      </jsScript>
-    </jsScripts>
-    <fields>
-      <field>
-        <name>json</name>
-        <rename>json</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>656</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>ordena por ticker</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>TICKER</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>288</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>ordena por ticker antigo</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>antigo_ticker</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>416</xloc>
-      <yloc>192</yloc>
+      <xloc>768</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

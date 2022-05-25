@@ -4,17 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Movimentacao extends Model
 {
     use HasFactory;
 
     protected $table = 'movimentacoes';
-    protected $dateFormat = 'd/m/y';
     protected $fillable = ['nome','descricao', 'executada_em', 'valor', 'conta_id','categoria_id','user_id'];
     protected $casts = [
-        'efetuado_em' => 'date',
-        'preco' => 'decimal:2',
+        'executada_em' => 'date',
+        'valor' => 'decimal:2',
     ];
 
     public function conta()
@@ -25,5 +25,9 @@ class Movimentacao extends Model
     public function categoria()
     {
         return $this->belongsTo(Categoria::class);
+    }
+
+    public function setExecutadaEmAttribute($value) {
+        $this->attributes['executada_em'] = Carbon::createFromFormat('d/m/Y',$value);
     }
 }
